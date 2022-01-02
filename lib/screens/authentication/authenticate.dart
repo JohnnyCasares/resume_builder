@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//This widget is gonna be a toggle to change between register screen and sign in screen
 class Authenticate extends StatefulWidget {
   const Authenticate({Key? key}) : super(key: key);
 
