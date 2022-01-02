@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resume_builder/screens/authentication/register.dart';
 
 //This widget is gonna be a toggle to change between register screen and sign in screen
 class Authenticate extends StatefulWidget {
@@ -9,10 +10,17 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
+  bool showSignIn = true;
+  void toggleView() {
+    setState(() {
+      showSignIn = !showSignIn;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('AUTHENTICATE'),
-    );
+    if (true) {
+      return Register();
+    }
   }
 }

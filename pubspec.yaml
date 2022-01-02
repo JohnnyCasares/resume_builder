@@ -38,7 +38,8 @@ dependencies:
   cloud_firestore: ^3.1.5
   provider: ^6.0.2
   google_sign_in: ^5.2.1
-  font_awesome_flutter: ^9.2.0
+  firebase_core: ^1.10.6
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -63,8 +64,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+      - lib/assets/images/background.jpg
+      - lib/assets/images/white.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -78,10 +80,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+      - family: BodoniModa
+        fonts:
+          - asset: lib/assets/fonts/BodoniModa.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

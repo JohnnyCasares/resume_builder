@@ -62,8 +62,7 @@ class AuthService {
 //Sign in with GOOGLE
   Future signInwithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser =
-          await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleUser!.authentication;
 
