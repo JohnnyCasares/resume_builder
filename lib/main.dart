@@ -13,7 +13,7 @@ void main() async {
 final ThemeData _themeData = new ThemeData(
     textTheme: TextTheme(),
     fontFamily: 'Bondoni',
-    primaryColor: Colors.grey[300],
+    primaryColor: Colors.grey[400],
     primarySwatch: Colors.grey,
     scaffoldBackgroundColor: Colors.black);
 

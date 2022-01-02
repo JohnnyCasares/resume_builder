@@ -4,14 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:resume_builder/services/auth.dart';
 import 'package:resume_builder/shared/textInputModel.dart';
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
 
   @override
   _RegisterState createState() => _RegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class _RegisterState extends State<SignIn> {
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   @override
@@ -45,7 +45,7 @@ class _RegisterState extends State<Register> {
                   const Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Text(
-                      'Sign Up',
+                      'Sign In',
                       style: TextStyle(
                           fontSize: 20,
                           fontFamily: 'BodoniModa',
@@ -77,9 +77,8 @@ class _RegisterState extends State<Register> {
                         //Password Text Field
                         TextFormField(
                           decoration: textInputDecoration('Password'),
-                          validator: (val) => val!.length < 6
-                              ? 'Enter a password 6+ characters long'
-                              : null,
+                          validator: (val) =>
+                              val!.length < 6 ? 'Enter your password' : null,
                           obscureText: true,
                           onChanged: (val) {
                             setState(() {
@@ -91,13 +90,13 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 20,
                   ),
-                  //Button to Register
-                  ElevatedButton(onPressed: () {}, child: Text('Register')),
+                  //Button to SignIn
+                  ElevatedButton(onPressed: () {}, child: Text('Login')),
                   const SizedBox(
                     height: 10,
                   ),
                   //Button for sign in
-                  TextButton(onPressed: () {}, child: Text('Sign in')),
+                  TextButton(onPressed: () {}, child: Text('Sign up')),
                   const SizedBox(
                     height: 40,
                   ),
