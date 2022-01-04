@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">resume_builder</string>
+<string name="facebook_app_id">501690267865875</string>
+<string name="fb_login_protocol_scheme">fb501690267865875</string>
+
+</resources>

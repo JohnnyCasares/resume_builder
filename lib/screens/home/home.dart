@@ -6,11 +6,13 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[600],
         title: Text('Resume Builder'),
         centerTitle: true,
       ),
+      body: Column(),
     );
   }
 }

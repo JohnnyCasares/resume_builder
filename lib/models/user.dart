@@ -3,3 +3,5 @@ class UserModel {
 
   UserModel({this.uid});
 }
+
+
