@@ -15,7 +15,7 @@ class AuthService {
 
   //Grab from Firebase User the info we need to use my own User model
   //create a UserModel object based on firebaseUser
-  UserModel? _userFromFireBase(User user) {
+  UserModel? _userFromFireBase(User? user) {
     if (user != null) {
       return UserModel(uid: user.uid);
     } else {
@@ -99,8 +99,8 @@ class AuthService {
 //Sign up/in with Facebook
   Future signInWithFacebook() async {
     try {
-      final facebookLoginResult = await FacebookAuth.instance.login();
-      final userData = await FacebookAuth.instance.getUserData();
+      final facebookLoginResult = await FacebookAuth?.instance.login();
+      final userData = await FacebookAuth?.instance.getUserData();
       final FacebookAuthCredential = FacebookAuthProvider.credential(
           facebookLoginResult.accessToken!.token);
       await FirebaseAuth.instance.signInWithCredential(FacebookAuthCredential);
@@ -109,27 +109,37 @@ class AuthService {
     }
   }
 
-  Future signInWithTwitter() async {
+  Future<User?> signInWithTwitter() async {
     // Create a TwitterLogin instance
     final twitterLogin = new TwitterLogin(
-      apiKey: '4kyLAesfkDnA1O5iGBvfyKt8T',
-      apiSecretKey: 'NGI7VShZVUqt72mVbBDcVIe0U1RURqhjkxEyFwl18c1WayUcuc',
-      redirectURI: 'flutter-twitter-login://',
+      apiKey: 'J3ZrjNWt0wCn4HtQ0ldhbcFm5',
+      apiSecretKey: 'poJ4yHDNbbwRz6apzr4OzvjikHXOkXQn7G9r7zMuGEHLvIJFGc',
+      redirectURI: 'resume-builder-d1078://',
     );
 
     /// Forces the user to enter their credentials
     /// to ensure the correct users account is authorized.
     /// If you want to implement Twitter account switching, set [force_login] to true
     /// login(forceLogin: true);
-    try {
-      await twitterLogin.login().then((value) async {
-        final twitterAuthCredential = TwitterAuthProvider.credential(
-            accessToken: value.authToken!, secret: value.authTokenSecret!);
-
-        _auth.signInWithCredential(twitterAuthCredential);
-      });
-    } on Exception catch (e) {
-      print(e);
+    final authResult = await twitterLogin.login();
+    switch (authResult.status) {
+      case TwitterLoginStatus.loggedIn:
+        final userCredential = await _auth.signInWithCredential(
+          TwitterAuthProvider.credential(
+              accessToken: authResult.authToken!,
+              secret: authResult.authTokenSecret!),
+        );
+        return userCredential.user;
+      case TwitterLoginStatus.cancelledByUser:
+        // TODO: Handle this case.
+        break;
+      case TwitterLoginStatus.cancelledByUser:
+        throw FirebaseAuthException(
+          code: 'ERROR_ABORTED_BY_USER',
+          message: authResult.errorMessage,
+        );
+      default:
+        throw UnimplementedError();
     }
   }
 }
