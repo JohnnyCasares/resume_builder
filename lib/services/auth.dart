@@ -40,8 +40,6 @@ class AuthService {
       UserCredential result = _auth.createUserWithEmailAndPassword(
           email: email, password: password) as UserCredential;
       User? user = result.user;
-      await DataBaseService(uid: user?.uid)
-          .updateUserData('Header here', 'Summary here');
       return _userFromFireBase(user!);
     } catch (e) {
       print(e.toString());
@@ -55,7 +53,7 @@ class AuthService {
       UserCredential result = _auth.signInWithEmailAndPassword(
           email: email, password: password) as UserCredential;
       User? user = result.user;
-      return _userFromFireBase(user!);
+      return _userFromFireBase(user);
     } catch (e) {
       print(e.toString());
       return null;
@@ -99,8 +97,8 @@ class AuthService {
 //Sign up/in with Facebook
   Future signInWithFacebook() async {
     try {
-      final facebookLoginResult = await FacebookAuth?.instance.login();
-      final userData = await FacebookAuth?.instance.getUserData();
+      final facebookLoginResult = await FacebookAuth.instance.login();
+      final userData = await FacebookAuth.instance.getUserData();
       final FacebookAuthCredential = FacebookAuthProvider.credential(
           facebookLoginResult.accessToken!.token);
       await FirebaseAuth.instance.signInWithCredential(FacebookAuthCredential);
@@ -109,27 +107,30 @@ class AuthService {
     }
   }
 
-  Future<User?> signInWithTwitter() async {
+//Sign in with Twitter
+  Future<UserModel?> signInWithTwitter() async {
     // Create a TwitterLogin instance
     final twitterLogin = new TwitterLogin(
-      apiKey: 'J3ZrjNWt0wCn4HtQ0ldhbcFm5',
-      apiSecretKey: 'poJ4yHDNbbwRz6apzr4OzvjikHXOkXQn7G9r7zMuGEHLvIJFGc',
-      redirectURI: 'resume-builder-d1078://',
-    );
+        apiKey: 'J3ZrjNWt0wCn4HtQ0ldhbcFm5',
+        apiSecretKey: 'poJ4yHDNbbwRz6apzr4OzvjikHXOkXQn7G9r7zMuGEHLvIJFGc',
+        redirectURI:
+            'https://resume-builder-d1078.firebaseapp.com/__/auth/handler');
 
     /// Forces the user to enter their credentials
     /// to ensure the correct users account is authorized.
     /// If you want to implement Twitter account switching, set [force_login] to true
     /// login(forceLogin: true);
+
     final authResult = await twitterLogin.login();
     switch (authResult.status) {
       case TwitterLoginStatus.loggedIn:
-        final userCredential = await _auth.signInWithCredential(
-          TwitterAuthProvider.credential(
-              accessToken: authResult.authToken!,
-              secret: authResult.authTokenSecret!),
-        );
-        return userCredential.user;
+        final twitterAuthProvider = TwitterAuthProvider.credential(
+            accessToken: authResult.authToken!,
+            secret: authResult.authTokenSecret!);
+        final userCredential = await FirebaseAuth.instance
+            .signInWithCredential(twitterAuthProvider);
+        return _userFromFireBase(userCredential.user);
+        break;
       case TwitterLoginStatus.cancelledByUser:
         // TODO: Handle this case.
         break;
