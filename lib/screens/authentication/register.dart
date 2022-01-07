@@ -22,8 +22,7 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String error = '';
-  bool _facebookLoggedIn = false;
-  Map _userObj = {};
+
   @override
   Widget build(BuildContext context) {
     //Use scaffold to have basic structure of the screen.
@@ -37,20 +36,19 @@ class _RegisterState extends State<Register> {
               child: SafeArea(
                 child: Container(
                     padding:
-                        EdgeInsets.symmetric(vertical: 100, horizontal: 50),
+                        EdgeInsets.symmetric(vertical: 150, horizontal: 45),
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('lib/assets/images/background.jpg'),
                           fit: BoxFit.cover),
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Padding(
                           padding: const EdgeInsets.only(bottom: 20),
                           child: Text(
                             'Resume Builder',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 40,
                                 fontFamily: 'BodoniModa',
@@ -157,17 +155,17 @@ class _RegisterState extends State<Register> {
                                 _authService.signInWithFacebook();
                               },
                             ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            FloatingActionButton(
-                              onPressed: () {
-                                _authService.signInWithTwitter();
-                              },
-                              child: const Icon(
-                                FontAwesomeIcons.twitter,
-                              ),
-                            ),
+                            // const SizedBox(
+                            //   width: 20,
+                            // ),
+                            // FloatingActionButton(
+                            //   onPressed: () {
+                            //     _authService.signInWithTwitter();
+                            //   },
+                            //   child: const Icon(
+                            //     FontAwesomeIcons.twitter,
+                            //   ),
+                            // ),
                           ],
                         )
                       ],
