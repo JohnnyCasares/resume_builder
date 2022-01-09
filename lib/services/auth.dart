@@ -43,8 +43,8 @@ class AuthService {
       // User user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
       //     email: email, password: password) as User;
       User? user = result.user;
-      await DataBaseService(uid: user?.uid)
-          .updateUserData("Your name here", "Summary");
+      await DataBaseService(uid: user?.uid).updateUserData(
+          "Your name here", 0000000000, email, "Summary", 'Work Experience');
 
       return _userFromFireBase(user);
     } catch (e) {
@@ -87,8 +87,12 @@ class AuthService {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      await DataBaseService(uid: googleAuth?.idToken)
-          .updateUserData("Your name here", "Summary");
+      await DataBaseService(uid: googleAuth?.idToken).updateUserData(
+          "Your name here",
+          0000000000,
+          googleUser!.email.toString(),
+          "Summary",
+          'Work Experience');
       await _auth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       return null;
@@ -110,7 +114,8 @@ class AuthService {
           facebookLoginResult.accessToken!.token);
 
       await DataBaseService(uid: facebookLoginResult.accessToken?.userId)
-          .updateUserData("Your name here", "Summary");
+          .updateUserData("Your name here", 0000000000, 'example@example.com',
+              "Summary", 'Work Experience');
       await FirebaseAuth.instance.signInWithCredential(FacebookAuthCredential);
     } on FirebaseAuthException catch (e) {
       return null;

@@ -8,10 +8,14 @@ class DataBaseService {
   final CollectionReference resumeCollection =
       FirebaseFirestore.instance.collection('resume');
 
-  Future updateUserData(String name, String summary) async {
+  Future updateUserData(String name, int phone, String email, String summary,
+      String workExperience) async {
     return await resumeCollection.doc(uid).set({
       'name': name,
+      'phone': phone,
+      'email': email,
       'summary': summary,
+      'work experience': workExperience,
     });
   }
 
